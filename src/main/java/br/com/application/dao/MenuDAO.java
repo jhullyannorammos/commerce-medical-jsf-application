@@ -1,19 +1,19 @@
-package br.pro.delfino.drogaria.dao;
+package br.com.application.dao;
 
 import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.junit.Test;
 
-import br.com.application.converter.MenuDAO;
+
 import br.com.application.domain.Menu;
 
-public class MenuDAOTest {
+public class MenuDAO {
 	@Test
 	public void listar() throws HibernateException, Exception {
 		MenuDAO menuDAO = new MenuDAO();
 
-		List<Menu> lista = menuDAO.listar();
+		List<Menu> lista = null; // = menuDAO.listar();
 
 		for (Menu menu : lista) {
 			if (menu.getCaminho() == null) {
