@@ -18,31 +18,24 @@
 
 	<div id="geral">
 		<div id="topo" class="divTopo">
-			<p:graphicImage library="images" name="Medtronic.jpg" styleClass="imagemCentralizada" />
+			<p:graphicImage library="images" name="Medtronic.png" styleClass="imagemCentralizada" />
 		</div>
 
 		<div id="cabecalho" class="divCabecalho">
 			<h:form id="formMenu">
 				<p:menubar>
-					<p:submenu label="Arquivo">
-						<p:menuitem value="Sair" />
-					</p:submenu>
-
 					<p:submenu label="Cadastros" rendered="#{autenticacaoBean.temPermissoes(['A', 'G'])}">
 						<p:menuitem value="Estado" url="/pages/estados.xhtml" />
 						<p:menuitem value="Cidade" url="/pages/cidades.xhtml" />
+						<p:separator/>
 						<p:menuitem value="Fabricante" url="/pages/fabricantes.xhtml" />
 						<p:menuitem value="Produto" url="/pages/produtos.xhtml" />
+						<p:menuitem value="Venda" url="/pages/vendas.xhtml" />
+						<p:separator/>
 						<p:menuitem value="Pessoa" url="/pages/pessoas.xhtml" />
 						<p:menuitem value="Cliente" url="/pages/clientes.xhtml" />
-					</p:submenu>
-
-					<p:submenu label="Movimentações">
-						<p:menuitem value="Venda" url="/pages/vendas.xhtml" />
-					</p:submenu>
-
-					<p:submenu label="Ajuda">
-						<p:menuitem value="Sobre" />
+						<p:separator/>
+						<p:menuitem value="Sair" />
 					</p:submenu>
 				</p:menubar>
 			</h:form>
