@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+    <property name="hibernate.connection.datasource">java:/comp/env/jdbc/datasouce</property>
+    <property name="hibernate.default_schema">public</property>
+	
+	<property name="hibernate.current_session_context_class">thread</property>
+	<property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+	<property name="hibernate.jdbc.factory_class">org.hibernate.jdbc.NonBatchingBatcherFactory</property>
+	<property name="hibernate.jdbc.batch_size">100</property>
+	<property name="hibernate.cache.use_second_level_cache">true</property>
+	<property name="hibernate.transaction.auto_close_session">true</property>
+	<property name="hibernate.generate_statistics">false</property>
+	<property name="hibernate.use_sql_comments">false</property>
+	<property name="hibernate.connection.autocommit">false</property>
+	<property name="hibernate.connection.pool_size">50</property>
+		
+    <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:5432/drugstore?useTimezone=true&amp;serverTimezone=UTC</property>
+    <property name="hibernate.connection.password">1q2w3e4r5t</property>
+    <property name="hibernate.connection.autocommit">false</property>
+    <property name="hibernate.connection.username">postgres</property> 
+    
+    <property name="hibernate.show_sql">true</property>   
+    <property name="hibernate.format_sql">true</property>
+
+    <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
+    <property name="current_session_context_class">thread</property>
+    <property name="hbm2ddl.auto">update</property>
+    <property name="show_sql">true</property>
+    
+    <mapping class="br.com.application.domain.Movimentacao"/>
+    <mapping class="br.com.application.domain.Funcionario"/>
+    <mapping class="br.com.application.domain.Fabricante"/>
+    <mapping class="br.com.application.domain.Historico"/>
+    <mapping class="br.com.application.domain.ItemVenda"/>
+    <mapping class="br.com.application.domain.Cliente"/>
+    <mapping class="br.com.application.domain.Produto"/>
+    <mapping class="br.com.application.domain.Usuario"/>
+    <mapping class="br.com.application.domain.Pessoa"/>
+    <mapping class="br.com.application.domain.Estado"/>
+    <mapping class="br.com.application.domain.Cidade"/>
+    <mapping class="br.com.application.domain.Caixa"/>
+    <mapping class="br.com.application.domain.Venda"/>
+    <mapping class="br.com.application.domain.Menu"/>
+
+  </session-factory>
+  
+  <!-- 
+  <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		<property name="hibernate.connection.datasource">java:/comp/env/jdbc/datasouce</property>
+		<property name="hibernate.default_schema">public</property>
+		<property name="hibernate.current_session_context_class">thread</property>
+		<property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+		<property name="hibernate.jdbc.factory_class">org.hibernate.jdbc.NonBatchingBatcherFactory</property>
+		<property name="hibernate.jdbc.batch_size">100</property>
+		<property name="hibernate.cache.use_second_level_cache">true</property>
+		<property name="hibernate.transaction.auto_close_session">true</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		<property name="hibernate.show_sql">true</property> 
+		<property name="hibernate.format_sql">true</property>
+		<property name="hibernate.generate_statistics">false</property>
+		<property name="hibernate.use_sql_comments">false</property>
+		<property name="hibernate.connection.autocommit">false</property>
+		<property name="hibernate.connection.pool_size">50</property>
+		
+		root
+		<property name="hibernate.connection.username">root</property>    
+        <property name="hibernate.connection.password">$Pr!ngf!3ld</property>
+		
+		DBSecurity
+		<property name="hibernate.connection.username">jhullyannoorammos</property>    
+        <property name="hibernate.connection.password">31Street12Fight2021</property>
+		
+		Backup admin
+		<property name="hibernate.connection.username">julianoramos</property>    
+        <property name="hibernate.connection.password">B@rr3irAs</property>
+        
+        DBManager
+		<property name="hibernate.connection.username">jhulliannoorammos</property>    
+        <property name="hibernate.connection.password">Br@siliA-DF-C3ntrAl</property>
+        
+        DBDesigner
+		<property name="hibernate.connection.username">juliannorammos</property>    
+        <property name="hibernate.connection.password">G0yAni@-G0iaS</property>
+        
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.format_sql">true</property>
+    <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/application?useTimezone=true&amp;serverTimezone=UTC</property>
+    <property name="hibernate.connection.password">$Pr!ngf!3ld</property>
+    <property name="hibernate.connection.autocommit">false</property>
+    <property name="hibernate.connection.username">root</property>   
+    
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.format_sql">true</property>
+    <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://151.106.96.201:3306/u772621135_business?useTimezone=true&amp;serverTimezone=UTC</property>
+    <property name="hibernate.connection.password">JRi@2021</property>
+    <property name="hibernate.connection.autocommit">false</property>
+    <property name="hibernate.connection.username">u772621135_julianors</property>  
+    
+    
+     <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://192.168.1.13:5432/perolaweb" />
+
+    <property name="javax.persistence.jdbc.user" value="user" />
+    <property name="javax.persistence.jdbc.password" value="password" />
+    <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+      
+        
+   -->
+  
+</hibernate-configuration>
