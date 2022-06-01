@@ -1,6 +1,7 @@
 package br.com.application.bean;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,6 +11,7 @@ import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
+import br.com.application.bean.tools.ReportBean;
 import br.com.application.dao.CidadeDAO;
 import br.com.application.dao.EstadoDAO;
 import br.com.application.domain.Cidade;
@@ -18,8 +20,9 @@ import br.com.application.domain.Estado;
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
-public class CidadeBean implements Serializable {
+public class CidadeBean extends ReportBean {
 	
+	private Estado estadoSelecionado;
 	private List<Cidade> cidades;
 	private List<Estado> estados;
 	private Cidade cidade;
@@ -90,6 +93,22 @@ public class CidadeBean implements Serializable {
 			erro.printStackTrace();
 		}finally {
 			Messages.addGlobalInfo("Cidade atualizado com sucesso");
+		}
+	}
+	
+	public void cidadesBy(ActionEvent evento) throws Exception {
+		estadoSelecionado = (Estado) evento.getComponent().getAttributes().get("estadoSelecionado");
+		try {
+			EstadoDAO estadoDAO = new EstadoDAO();
+			cidades = estadoDAO.listarCidadesBy(estadoSelecionado.getCodigo());
+			
+			HashMap paramRel = new HashMap();
+			
+			ReportGeneratorToPDF("Cidades do estado " + estadoSelecionado.getNome() , paramRel, cidades);
+		} catch(Exception exception) {
+			exception.printStackTrace();
+		} finally {
+			
 		}
 	}
 	

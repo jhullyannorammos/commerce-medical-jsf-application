@@ -1,6 +1,13 @@
 drop schema drugstore;
 create schema drugstore;
 
+SELECT * FROM ESTADO;
+
+SELECT c.nome, uf.sigla
+FROM drugstore.cidade as c
+JOIN drugstore.estado as uf
+ON c.estado_codigo = uf.codigo;
+
 use drugstore;    
 select * from usuario;
     

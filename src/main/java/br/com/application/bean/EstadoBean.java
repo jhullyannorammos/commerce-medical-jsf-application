@@ -20,8 +20,9 @@ import br.com.application.domain.Estado;
 @ViewScoped
 public class EstadoBean extends ReportBean {
 	
-	private Estado estado;
+	private EstadoDAO estadoDAO;
 	private List<Estado> estados;
+	private Estado estado;
 	
 	@PostConstruct
 	public void initialization() throws Exception {
@@ -30,7 +31,7 @@ public class EstadoBean extends ReportBean {
 
 	public void listar() throws Exception {
 		try {
-			EstadoDAO estadoDAO = new EstadoDAO();
+			estadoDAO = new EstadoDAO();
 			estados = estadoDAO.listar();
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar listar os estados");
@@ -44,7 +45,7 @@ public class EstadoBean extends ReportBean {
 
 	public void salvar() throws Exception {
 		try {
-			EstadoDAO estadoDAO = new EstadoDAO();
+			estadoDAO = new EstadoDAO();
 			estadoDAO.merge(estado);
 			estado = new Estado();
 			estados = estadoDAO.listar();
@@ -59,7 +60,7 @@ public class EstadoBean extends ReportBean {
 	public void excluir(ActionEvent evento) throws Exception {
 		estado = (Estado) evento.getComponent().getAttributes().get("estadoSelecionado");
 		try {
-			EstadoDAO estadoDAO = new EstadoDAO();
+			estadoDAO = new EstadoDAO();
 			estadoDAO.excluir(estado);
 			estados = estadoDAO.listar();
 			Messages.addGlobalInfo("Estado removido com sucesso");
@@ -72,13 +73,29 @@ public class EstadoBean extends ReportBean {
 	public void editar(ActionEvent evento) throws Exception {
 		estado = (Estado) evento.getComponent().getAttributes().get("estadoSelecionado");
 		try {
-		    EstadoDAO estadoDAO = new EstadoDAO();
+		    estadoDAO = new EstadoDAO();
 		    estadoDAO.merge(estado);
 		    estados = estadoDAO.listar();
 		    Messages.addGlobalInfo("Estado atualizado com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o estado");
 			erro.printStackTrace();
+		}
+	}
+	
+	public void report(ActionEvent evento) throws Exception {
+		//estado = (Estado) evento.getComponent().getAttributes().get("estadoSelecionado");
+		try {
+			estadoDAO = new EstadoDAO();
+			estados = estadoDAO.listar();
+			
+			HashMap paramRel = new HashMap();
+			
+			ReportGeneratorToPDF("Estados", paramRel, estados);
+		} catch(Exception exception) {
+			exception.printStackTrace();
+		} finally {
+			
 		}
 	}
 	

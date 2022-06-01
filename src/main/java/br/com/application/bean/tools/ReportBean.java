@@ -11,6 +11,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import org.omnifaces.util.Faces;
+
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -31,7 +33,7 @@ public class ReportBean implements Serializable {
 		
 		try {
 			String path = servletContext.getRealPath("/");
-			String logo = path + "resources/imagens/logo.jpg";
+			String logo = path + "resources/imagens/Medtronic.png";
 			
 			param.put("REPORT_LOCALE", new Locale("PT", "BR"));
 			param.put("logo", logo);

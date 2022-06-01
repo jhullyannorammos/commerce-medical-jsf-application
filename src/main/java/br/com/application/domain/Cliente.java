@@ -22,6 +22,10 @@ public class Cliente extends GenericDomain {
 	
 	@JoinColumn(nullable = false)
 	@OneToOne private Pessoa pessoa;
+	
+	public Cliente() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Date getDataCadastro() {
 		return dataCadastro;

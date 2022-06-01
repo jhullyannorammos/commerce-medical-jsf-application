@@ -21,9 +21,7 @@
 	<ui:define name="conteudo">
 		<h:form id="formListagem">
 			<p:panel header="Estados - Listagem">
-				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
-					paginator="true" value="#{estadoBean.estados}" var="estado"
-					rows="5" paginatorPosition="top">
+				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado." paginator="true" value="#{estadoBean.estados}" var="estado" rows="5" paginatorPosition="top">
 					<f:facet name="header">
 					    <p:commandButton value="Novo" oncomplete="PF('dialogo').show();" actionListener="#{estadoBean.novo}" update=":formCadastro:painel" />
 						<p:commandButton value="Relatorio" actionListener="#{estadoBean.report()}" ajax="false" />

@@ -9,6 +9,7 @@ import javax.faces.bean.ViewScoped;
 
 import org.omnifaces.util.Messages;
 
+import br.com.application.bean.tools.ReportBean;
 import br.com.application.dao.ClienteDAO;
 import br.com.application.dao.PessoaDAO;
 import br.com.application.domain.Cliente;
@@ -17,9 +18,9 @@ import br.com.application.domain.Pessoa;
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
-public class ClienteBean implements Serializable {
+public class ClienteBean extends ReportBean {
+	
 	private Cliente cliente;
-
 	private List<Cliente> clientes;
 	private List<Pessoa> pessoas;
 	private ClienteDAO clienteDAO;
@@ -69,6 +70,8 @@ public class ClienteBean implements Serializable {
 			cliente = new Cliente();
 		}
 	}
+	
+	
 	
 	public Cliente getCliente() {
 		return cliente;
