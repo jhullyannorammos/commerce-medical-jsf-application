@@ -22,10 +22,9 @@ public class ImagemBean {
 	
 	private StreamedContent foto;
 	
-	public StreamedContent getFoto(String photoPath) throws IOException {
+	public StreamedContent getFoto() throws IOException {
 		if(caminho == null || caminho.isEmpty()){
-			Path path = Paths.get(photoPath);
-			//Path path = Paths.get("F:/motona.png");
+			Path path = Paths.get("D:/bullet.png");
 			InputStream stream = Files.newInputStream(path);
 			foto = new DefaultStreamedContent(stream);
 		}else{

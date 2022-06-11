@@ -11,6 +11,7 @@ import javax.persistence.Transient;
 @SuppressWarnings("serial")
 @Entity
 public class Produto extends GenericDomain {
+	
 	@Column(length = 80, nullable = false)
 	private String descricao;
 	
@@ -24,7 +25,7 @@ public class Produto extends GenericDomain {
 	@JoinColumn(nullable = false)
 	private Fabricante fabricante;
 	
-	//@Transient private String caminho;
+	@Transient private String caminho;
 
 	public String getDescricao() {
 		return descricao;
@@ -57,12 +58,12 @@ public class Produto extends GenericDomain {
 	public void setFabricante(Fabricante fabricante) {
 		this.fabricante = fabricante;
 	}
-	/*
+	
 	public String getCaminho() {
 		return caminho;
 	}
 	
 	public void setCaminho(String caminho) {
 		this.caminho = caminho;
-	}*/
+	}
 }

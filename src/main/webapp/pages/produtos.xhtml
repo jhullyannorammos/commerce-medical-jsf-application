@@ -23,7 +23,7 @@
 					<p:commandButton icon="ui-icon-plus"
 						actionListener="#{produtoBean.novo}"
 						oncomplete="PF('dialogo').show();"
-						update=":mensagem :formCadastro:painel">
+						update=":mensagem :form-produto:painel">
 						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 					</p:commandButton>
 
@@ -62,7 +62,7 @@
 
 					<p:commandButton icon="ui-icon-pencil"
 						actionListener="#{produtoBean.editar}"
-						update=":mensagem :formCadastro:painel"
+						update=":mensagem :form-produto:painel"
 						oncomplete="PF('dialogo').show();">
 						<f:attribute name="produtoSelecionado" value="#{produto}" />
 						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
@@ -85,8 +85,8 @@
 		</p:panel>
 	</h:form>
 
-	<p:dialog header="Produtos - Cadastro" widgetVar="dialogo" 	draggable="false" resizable="false" modal="true" closable="false">
-		<h:form id="formCadastro" enctype="multipart/form-data">
+	<p:dialog header="Produtos - Cadastro" widgetVar="dialogo" 	draggable="true" resizable="false" modal="true" closable="false">
+		<h:form id="form-produto" enctype="multipart/form-data">
 			<h:panelGrid id="painel" columns="2">
 			
 				<p:outputLabel for="descricao" value="Descrição:" />
@@ -122,14 +122,24 @@
 
 				
 				<p:outputLabel for="upload" value="Upload:" />
-				<p:fileUpload id="upload" mode="advanced" fileUploadListener="#{produtoBean.upload}" update=":mensagem-produto" auto="true" />
+				<p:fileUpload fileUploadListener="#{produtoBean.upload}" 
+				              update=":mensagem-produto :form-produto:foto" 
+				              mode="advanced"
+				              auto="true"  
+				              id="upload" />
+				              
 
 
+                <p:outputLabel for="foto" value="Foto" />
+                <p:graphicImage value="#{imagemBean.foto}" >
+                     <f:param name="caminho" value="#{produtoBean.produto.caminho}" />
+                </p:graphicImage>/
+ 
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
 				<p:commandButton value="Salvar"
-					actionListener="#{produtoBean.salvar}" update=":mensagem-produto :formCadastro:painel :formListagem:tabela" />
+					actionListener="#{produtoBean.salvar}" update=":mensagem-produto :form-produto:painel :formListagem:tabela" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>

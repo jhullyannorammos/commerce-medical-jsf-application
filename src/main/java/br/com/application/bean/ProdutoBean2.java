@@ -46,11 +46,11 @@ public class ProdutoBean2  implements Serializable {
 	public void carregarEdicao() throws Exception{
 		try {
 			produto = produtoDAO.buscar(codigoProduto);
-			
-			fabricantes = fabricanteDAO.listar("descricao");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar carregar os dados para edição");
 			erro.printStackTrace();
+		} finally {
+			fabricantes = fabricanteDAO.listar("descricao");
 		}
 	}
 	

@@ -41,21 +41,19 @@
 					</p:column>
 
 					<p:column headerText="Opções">
-						<p:commandButton icon="ui-icon-trash"
-							actionListener="#{cidadeBean.excluir}"
-							update=":mensagem :formListagem:tabela">
-							<p:confirm header="Confirmação" message="Deseja excluir a cidade"
-								icon="ui-icon-alert" />
+					    <p:commandButton icon="ui-icon-document" actionListener="#{cidadeBean.cidadesBy}" >
+					        <f:attribute name="cidadeSelecionada" value="#{cidade.estado}" />
+							<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					    </p:commandButton>
+					
+						<p:commandButton icon="ui-icon-trash" actionListener="#{cidadeBean.excluir}" update=":mensagem :formListagem:tabela">
+							<p:confirm header="Confirmação" message="Deseja excluir a cidade" icon="ui-icon-alert" />
 							<f:attribute name="cidadeSelecionada" value="#{cidade}" />
 						</p:commandButton>
 
-						<p:commandButton icon="ui-icon-pencil"
-							actionListener="#{cidadeBean.editar}"
-							update=":mensagem :formCadastro:painel"
-							oncomplete="PF('dialogo').show();">
+						<p:commandButton icon="ui-icon-pencil" actionListener="#{cidadeBean.editar}" update=":mensagem :formCadastro:painel" oncomplete="PF('dialogo').show();">
 							<f:attribute name="cidadeSelecionada" value="#{cidade}" />
-							<f:actionListener
-								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+							<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 						</p:commandButton>
 					</p:column>
 				</p:dataTable>
@@ -92,10 +90,7 @@
 				</h:panelGrid>
 
 				<h:panelGrid columns="2">
-					<p:commandButton value="Salvar"
-						actionListener="#{cidadeBean.salvar}"
-						update=":mensagem :formCadastro:painel :formListagem:tabela" />
-
+					<p:commandButton value="Salvar" actionListener="#{cidadeBean.salvar}" update=":mensagem :formCadastro:painel :formListagem:tabela" />
 					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 				</h:panelGrid>
 			</h:form>

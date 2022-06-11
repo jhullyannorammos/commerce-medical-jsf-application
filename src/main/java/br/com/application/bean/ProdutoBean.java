@@ -43,6 +43,7 @@ import net.sf.jasperreports.engine.JasperPrintManager;
 @ViewScoped
 public class ProdutoBean implements Serializable {
 	
+	ProdutoDAO produtoDAO;
 	private Produto produto;
 	private List<Produto> produtos;
 	private List<Fabricante> fabricantes;
@@ -53,7 +54,7 @@ public class ProdutoBean implements Serializable {
 
 	@PostConstruct public void listar() throws Exception {
 		try {
-			ProdutoDAO produtoDAO = new ProdutoDAO();
+			produtoDAO = new ProdutoDAO();
 			produtos = produtoDAO.listar("descricao");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar listar os produtos");
@@ -76,7 +77,7 @@ public class ProdutoBean implements Serializable {
 	public void editar(ActionEvent evento) throws Exception {
 		try {
 			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
-			//produto.setCaminho("C:/Desenvolvimento/Uploads/" + produto.getCodigo() + ".png");
+			produto.setCaminho("D:/images/devs/" + produto.getCodigo() + ".png");
 
 			FabricanteDAO fabricanteDAO = new FabricanteDAO();
 			fabricantes = fabricanteDAO.listar();
@@ -88,74 +89,67 @@ public class ProdutoBean implements Serializable {
 
 	public void salvar() throws Exception {
 		try {
-			//if (produto.getCaminho() == null) {
-			//	Messages.addGlobalError("O campo foto é obrigatório");
-			//	return;
-			//}
+			if (produto.getCaminho() == null) {
+				Messages.addGlobalError("O campo foto é obrigatório");
+				return;
+			}
 
-			ProdutoDAO produtoDAO = new ProdutoDAO();
-			//Produto produtoRetorno = produtoDAO.merge(produto);
+			produtoDAO = new ProdutoDAO();
+			Produto produtoRetorno = produtoDAO.merge(produto);
 
-			//Path origem = Paths.get(produto.getCaminho());
-			//Path destino = Paths.get("C:/Desenvolvimento/Uploads/" + produtoRetorno.getCodigo() + ".png");
-			//Files.copy(origem, destino, StandardCopyOption.REPLACE_EXISTING);
+			Path origem = Paths.get(produto.getCaminho());
+			Path destino = Paths.get("D:/images/devs/" + produtoRetorno.getCodigo() + ".png");
+			Files.copy(origem, destino, StandardCopyOption.REPLACE_EXISTING);
 			
-			produto = new Produto();
-			FabricanteDAO fabricanteDAO = new FabricanteDAO();
-			fabricantes = fabricanteDAO.listar();
-			produtos = produtoDAO.listar();
-			
-			Messages.addGlobalInfo("Produto salvo com sucesso");
 		} catch (RuntimeException | IOException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar o produto");
 			erro.printStackTrace();
 		} finally {
+			FabricanteDAO fabricanteDAO = new FabricanteDAO();
+			fabricantes = fabricanteDAO.listar();
+			
+			produtoDAO = new ProdutoDAO();
+			produtos = produtoDAO.listar();
 
+			Messages.addGlobalInfo("Produto salvo com sucesso");
 		}
 	}
 
 	public void excluir(ActionEvent evento) throws Exception {
+		produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 		try {
-			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
-
-			ProdutoDAO produtoDAO = new ProdutoDAO();
+			produtoDAO = new ProdutoDAO();
 			produtoDAO.excluir(produto);
 
-			//Path arquivo = Paths.get("C:/Desenvolvimento//Uploads/" + produto.getCodigo() + ".png");
-			//Files.deleteIfExists(arquivo);
+			Path arquivo = Paths.get("D:/images/dev/" + produto.getCodigo() + ".png");
+			Files.deleteIfExists(arquivo);
 
-			produtos = produtoDAO.listar();
-
-			Messages.addGlobalInfo("Produto removido com sucesso");
 		} catch (RuntimeException | IOException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o produto");
 			erro.printStackTrace();
+		} finally {
+			produtos = produtoDAO.listar();
+			Messages.addGlobalInfo("Produto removido com sucesso");
 		}
 	}
+
 	
-	public void upload(FileUploadEvent evento) {
-		try {
-
-
-			Messages.addGlobalInfo("Upload realizado com sucesso");
-		} catch (Exception erro) {
-			Messages.addGlobalInfo("Ocorreu um erro ao tentar realizar o upload de arquivo");
-			erro.printStackTrace();
-		}
-	}
-
-	/*
 	public void upload(FileUploadEvent evento) {
 		try {
 			UploadedFile arquivoUpload = evento.getFile();
 			Path arquivoTemp = Files.createTempFile(null, null);
-			Files.copy(arquivoUpload.getInputstream(), arquivoTemp, StandardCopyOption.REPLACE_EXISTING);
-			//produto.setCaminho(arquivoTemp.toString());
+			
+			Files.copy(arquivoUpload.getInputstream(), 
+					arquivoTemp, 
+					StandardCopyOption.REPLACE_EXISTING);
+			
+			produto.setCaminho(arquivoTemp.toString());
 
-			Messages.addGlobalInfo("Upload realizado com sucesso");
 		} catch (IOException erro) {
 			Messages.addGlobalInfo("Ocorreu um erro ao tentar realizar o upload de arquivo");
 			erro.printStackTrace();
+		} finally {
+			Messages.addGlobalInfo("Upload realizado com sucesso");
 		}
 	}
 
@@ -166,13 +160,10 @@ public class ProdutoBean implements Serializable {
 
 			String proDescricao = (String) filtros.get("descricao");
 			String fabDescricao = (String) filtros.get("fabricante.descricao");
-
 			String caminho = Faces.getRealPath("/reports/produtos.jasper");
-			
 			String caminhoBanner = Faces.getRealPath("/resources/images/banner.jpg");
 
 			Map<String, Object> parametros = new HashMap<>();
-			
 			parametros.put("CAMINHO_BANNER", caminhoBanner);
 			
 			if (proDescricao == null) {
@@ -180,6 +171,7 @@ public class ProdutoBean implements Serializable {
 			} else {
 				parametros.put("PRODUTO_DESCRICAO", "%" + proDescricao + "%");
 			}
+			
 			if (fabDescricao == null) {
 				parametros.put("FABRICANTE_DESCRICAO", "%%");
 			} else {
@@ -187,10 +179,9 @@ public class ProdutoBean implements Serializable {
 			}
 
 			Connection conexao = HibernateUtil.getConnection();
-
 			JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametros, conexao);
-
 			JasperPrintManager.printReport(relatorio, true);
+			
 		} catch (JRException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
 			erro.printStackTrace();
@@ -198,34 +189,15 @@ public class ProdutoBean implements Serializable {
 	}
 
 	public void download(ActionEvent evento) {
+		produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
 		try {
-			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
-			
 			InputStream stream = new FileInputStream("C:/Desenvolvimento/Uploads/" + produto.getCodigo() + ".png");
 			foto = new DefaultStreamedContent(stream, "image/png", produto.getCodigo() + ".png");
 		} catch (FileNotFoundException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar efetuar o download da foto");
 			erro.printStackTrace();
 		}
-	}*/
-	
-	public void imprimir() throws HibernateException, JRException {
-		try {
-			
-		} catch (Exception erro) {
-			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o relatório");
-			erro.printStackTrace();
-		}
 	}
-	
-	public void download(ActionEvent evento) throws FileNotFoundException {
-		try {
-			
-		} catch (Exception erro) {
-			Messages.addGlobalError("Ocorreu um erro ao tentar efetuar o download da foto");
-			erro.printStackTrace();
-		}
-    }
 	
 	public Produto getProduto() {
 		return produto;
