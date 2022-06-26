@@ -50,22 +50,12 @@ public class PessoaBean implements Serializable {
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar listar as pessoas");
 			erro.printStackTrace();
-		}
-	}
-
-	public void novo() {
-		try {
-			pessoa = new Pessoa();
-			estado = new Estado();
-		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Ocorreu um erro ao tentar gerar uma nova pessoa");
-			erro.printStackTrace();
-		}
+		} 
 	}
 
 	public void editar(ActionEvent evento) throws Exception {
+		pessoa = (Pessoa) evento.getComponent().getAttributes().get("pessoaSelecionada");
 		try{
-			pessoa = (Pessoa) evento.getComponent().getAttributes().get("pessoaSelecionada");
 			estado = pessoa.getCidade().getEstado();
 			EstadoDAO estadoDAO = new EstadoDAO();
 			estados = estadoDAO.listar("nome");
@@ -73,6 +63,9 @@ public class PessoaBean implements Serializable {
 			cidades = cidadeDAO.buscarPorEstado(estado.getCodigo());
 		}catch(RuntimeException erro){
 			Messages.addGlobalError("Ocorreu um erro ao tentar selecionar uma pessoa");
+			erro.printStackTrace();
+		} finally {
+			Messages.addGlobalInfo("Pessoa atualizada com sucesso");
 		}
 	}
 
@@ -83,17 +76,18 @@ public class PessoaBean implements Serializable {
 			
 			pessoaDAO = new PessoaDAO();
 			pessoas = pessoaDAO.listar("nome");
+
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Ocorreu um erro ao tentar salvar a pessoa");
+			erro.printStackTrace();
+		} finally {
+			Messages.addGlobalInfo("Pessoa salva com sucesso");
 			
 			pessoa = new Pessoa();
 			estado = new Estado();
 			
 			EstadoDAO estadoDAO = new EstadoDAO();
 			estados = estadoDAO.listar("nome");
-
-			Messages.addGlobalInfo("Pessoa salva com sucesso");
-		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Ocorreu um erro ao tentar salvar a pessoa");
-			erro.printStackTrace();
 		}
 	}
 
@@ -103,7 +97,7 @@ public class PessoaBean implements Serializable {
 
 	public void popular() throws Exception {
 		try {
-	        cidades = cidadeDao.buscarPorEstado(estado.getCodigo());
+	        cidades = cidadeDao.listar();
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar filtrar as cidades");
 			erro.printStackTrace();

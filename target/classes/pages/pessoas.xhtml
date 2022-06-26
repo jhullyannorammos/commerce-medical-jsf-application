@@ -39,21 +39,21 @@
 				</p:column>
 
 				<p:column headerText="Opções">
-					<p:commandButton icon="ui-icon-trash"
-						actionListener="#{pessoaBean.excluir}"
-						update=":mensagem-pessoa :formListagem:tabela">
-						<p:confirm header="Confirmação" message="Deseja excluir a pessoa?"
-							icon="ui-icon-alert" />
-						<f:attribute name="pessoaSelecionada" value="#{pessoa}" />
-					</p:commandButton>
 
 					<p:commandButton icon="ui-icon-pencil"
 						actionListener="#{pessoaBean.editar}"
 						update=":mensagem-pessoa :formCadastro:painel"
 						oncomplete="PF('dialogo').show();">
 						<f:attribute name="pessoaSelecionada" value="#{pessoa}" />
-						<f:actionListener
-							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					</p:commandButton>
+					
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{pessoaBean.excluir}"
+						update=":mensagem-pessoa :formListagem:tabela">
+						<p:confirm header="Confirmação" message="Deseja excluir a pessoa?"
+							icon="ui-icon-alert" />
+						<f:attribute name="pessoaSelecionada" value="#{pessoa}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
@@ -65,8 +65,7 @@
 		</p:panel>
 	</h:form>
 
-	<p:dialog header="Pessoas - Cadastro" widgetVar="dialogo"
-		draggable="false" resizable="false" modal="true" closable="false">
+	<p:dialog header="Pessoas - Cadastro" widgetVar="dialogo" draggable="false" resizable="false" modal="true" closable="false">
 		<h:form id="formCadastro">
 			<h:panelGrid id="painel" columns="2">
 				<p:outputLabel for="nome" value="Nome:" />
@@ -83,12 +82,6 @@
 				<p:inputMask id="cpf" mask="999.999.999-99" size="10"
 					value="#{pessoaBean.pessoa.cpf}" required="true"
 					requiredMessage="O campo 'CPF' é obrigatório" />
-
-				<p:outputLabel for="estado" value="Estado:" />
-				<p:selectOneMenu update=":formCadastro:cidade" id="estado" filter="true" converter="omnifaces.SelectItemsConverter" value="#{pessoaBean.estado}"> 
-					<f:selectItem noSelectionOption="true" itemLabel="Selecione um estado" />
-					<f:selectItems value="#{pessoaBean.estados}" var="estado" itemValue="#{estado}" itemLabel="#{estado.nome}" />
-				</p:selectOneMenu>
 
 				<p:outputLabel for="cidade" value="Cidade:" />
 				<p:selectOneMenu id="cidade" filter="true" required="true" requiredMessage="O campo 'Cidade' é obrigatório" converter="omnifaces.SelectItemsConverter" value="#{pessoaBean.pessoa.cidade}">

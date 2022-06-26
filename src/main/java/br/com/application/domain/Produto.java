@@ -25,7 +25,12 @@ public class Produto extends GenericDomain {
 	@JoinColumn(nullable = false)
 	private Fabricante fabricante;
 	
-	@Transient private String caminho;
+	@Transient 
+	private String caminho;
+	
+	public Produto() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public String getDescricao() {
 		return descricao;

@@ -24,6 +24,7 @@
 		<div id="cabecalho" class="divCabecalho">
 			<h:form id="formMenu">
 				<p:menubar>
+				    <p:submenu value="Bem vindo #{autenticacaoBean.usuarioLogado.pessoa.nome}."></p:submenu>
 					<p:submenu label="Cadastros" rendered="#{autenticacaoBean.temPermissoes(['A', 'G'])}">
 						<p:menuitem value="Estado" url="/pages/estados.xhtml" />
 						<p:menuitem value="Cidade" url="/pages/cidades.xhtml" />

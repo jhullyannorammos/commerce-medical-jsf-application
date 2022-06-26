@@ -49,9 +49,7 @@ public class ProdutoBean implements Serializable {
 	private List<Fabricante> fabricantes;
 
 	private StreamedContent foto;
-
 	
-
 	@PostConstruct public void listar() throws Exception {
 		try {
 			produtoDAO = new ProdutoDAO();

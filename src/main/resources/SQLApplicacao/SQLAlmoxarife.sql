@@ -1,12 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.0.10deb1
--- http://www.phpmyadmin.net
---
--- Servidor: localhost
--- Tempo de Geração: 28/07/2016 às 18:30
--- Versão do servidor: 5.5.50-0ubuntu0.14.04.1
--- Versão do PHP: 5.5.9-1ubuntu4.17
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -16,21 +7,18 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
---
--- Banco de dados: `drugsore`
---
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `fabricante`
---
 use drugstore;
 CREATE TABLE IF NOT EXISTS `fabricante` (
   `codigo` int(11) NOT NULL AUTO_INCREMENT,
   `descricao` varchar(50) NOT NULL,
   PRIMARY KEY (`codigo`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+
+
+SELECT * FROM usuario;
+SELECT * FROM pessoa;
+SELECT * FROM cidade;
+SELECT * FROM estado;
 
 --
 -- Fazendo dump de dados para tabela `fabricante`
@@ -52,7 +40,7 @@ INSERT INTO `fabricante` (`codigo`, `descricao`) VALUES
 (13, 'Umbrella Medical'),
 (14, 'AVMedical'),
 (15, 'Laboratorio Cebrom'),
-(17, 'Hidra Tecnologias Medicas LTDA');
+(16, 'Hidra Tecnologias Medicas LTDA');
 
 -- --------------------------------------------------------
 
@@ -85,3 +73,11 @@ INSERT INTO `produto` (`codigo`, `descricao`, `quantidade`, `preco`, `fabricante
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+select cpf, senha from usuario as u join pessoa as p on u.pessoa_codigo = p.codigo where p.cpf = "254.397.854-73" and u.senha = "1q2w3e4r";
+insert into usuario values(1, true, "123456", "ADMINISTRADOR", 1);
+
+insert into estado values(1, "ACRE", "AC");
+    insert into estado values(2, "AMAZONAS", "AM");
+    insert into estado values(3, "ALAGOAS", "AL");
+    insert into estado values(4, "Bahia", "BA");

@@ -7,17 +7,28 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import br.com.application.enumeracao.TipoUsuario;
 
 @SuppressWarnings("serial")
 @Entity
 public class Usuario extends GenericDomain {
+	
+	@NotNull @Column(name="username")
+    private String username;
+   
+	@NotNull
+    @Column(name = "logon", 
+            length = 30, 
+            unique = true, 
+            nullable = false)
+    private String logon;
+	
 	@Column(length = 32, nullable = false)
 	private String senha;
 	
-	@Transient
-	private String senhaSemCriptografia;
+	@Transient private String senhaSemCriptografia;
 	
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
@@ -79,5 +90,21 @@ public class Usuario extends GenericDomain {
 	
 	public void setTipoUsuario(TipoUsuario tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
+	}
+	
+	public String getLogon() {
+		return logon;
+	}
+	
+	public String getUsername() {
+		return username;
+	}
+	
+	public void setLogon(String logon) {
+		this.logon = logon;
+	}
+	
+	public void setUsername(String username) {
+		this.username = username;
 	}
 }

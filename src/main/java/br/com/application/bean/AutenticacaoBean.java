@@ -54,7 +54,7 @@ public class AutenticacaoBean {
 		}
 	}
 	
-	public void autenticar() throws HibernateException, Exception {
+	public void autentica() throws HibernateException, Exception {
 		try {
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
 			usuarioLogado = usuarioDAO.autenticar(usuario.getPessoa().getCpf(), usuario.getSenha());
@@ -68,6 +68,24 @@ public class AutenticacaoBean {
 		} catch (IOException erro) {
 			erro.printStackTrace();
 			Messages.addGlobalError(erro.getMessage());
+		}
+	}
+	
+	public void autenticar() throws HibernateException, Exception {
+		try {
+			UsuarioDAO usuarioDAO = new UsuarioDAO();
+			usuarioLogado = usuarioDAO.getUsuario(usuario.getLogon(), usuario.getSenha());
+			
+			if(usuarioLogado == null){
+				Messages.addGlobalError("Username e/ou senha incorretos");
+				return;
+			}
+
+		} catch (Exception erro) {
+			erro.printStackTrace();
+			Messages.addGlobalError(erro.getMessage());
+		} finally {
+			Faces.redirect("./pages/vendas.xhtml");
 		}
 	}
 	

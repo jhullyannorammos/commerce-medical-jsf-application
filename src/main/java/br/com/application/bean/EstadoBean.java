@@ -44,8 +44,10 @@ public class EstadoBean extends ReportBean {
 	}
 
 	public void salvar() throws Exception {
+		
+		estadoDAO = new EstadoDAO();
 		try {
-			estadoDAO = new EstadoDAO();
+			
 			estadoDAO.merge(estado);
 			estado = new Estado();
 			estados = estadoDAO.listar();

@@ -15,9 +15,7 @@
 	<ui:define name="conteudo">
 		<h:form id="formListagem">
 			<p:panel header="Cidades - Listagem">
-				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
-					paginator="true" value="#{cidadeBean.cidades}" var="cidade"
-					rows="5" paginatorPosition="down">
+				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado." paginator="true" value="#{cidadeBean.cidades}" var="cidade" rows="5" paginatorPosition="top">
 					<f:facet name="header">
 						<p:commandButton value="Novo" actionListener="#{cidadeBean.novo}"
 							oncomplete="PF('dialogo').show();"

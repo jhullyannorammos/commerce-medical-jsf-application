@@ -17,14 +17,12 @@ import org.primefaces.model.StreamedContent;
 @RequestScoped
 public class ImagemBean {
 	
-	@ManagedProperty("#{param.caminho}")
-	private String caminho;
-	
+	@ManagedProperty("#{param.caminho}") private String caminho;
 	private StreamedContent foto;
 	
 	public StreamedContent getFoto() throws IOException {
 		if(caminho == null || caminho.isEmpty()){
-			Path path = Paths.get("D:/bullet.png");
+			Path path = Paths.get("D:/images/drugstore.jpg");
 			InputStream stream = Files.newInputStream(path);
 			foto = new DefaultStreamedContent(stream);
 		}else{

@@ -13,6 +13,9 @@ import javax.persistence.TemporalType;
 @Entity
 public class Funcionario extends GenericDomain {
 	
+	@JoinColumn(nullable = false)
+	@OneToOne private Pessoa pessoa;
+	
 	@Column(length = 15, nullable = false)
 	private String carteiraTrabalho;
 	
@@ -20,9 +23,9 @@ public class Funcionario extends GenericDomain {
 	@Temporal(TemporalType.DATE)
 	private Date dataAdmissao;
 	
-	@OneToOne
-	@JoinColumn(nullable = false)
-	private Pessoa pessoa;
+	public Funcionario() {
+		
+	}
 
 	public String getCarteiraTrabalho() {
 		return carteiraTrabalho;
@@ -39,11 +42,11 @@ public class Funcionario extends GenericDomain {
 	public void setDataAdmissao(Date dataAdmissao) {
 		this.dataAdmissao = dataAdmissao;
 	}
-
+	
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
-
+	
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}

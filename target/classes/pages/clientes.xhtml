@@ -13,14 +13,12 @@
 	<f:metadata>
 		<f:viewAction action="#{clienteBean.listar}" />
 	</f:metadata>
-	
-	<p:growl id="message" />
-
-
+    
+    <h:form id="form-clientes-listagem">
     <p:panel header="Clientes - Listagem">
 			<p:dataTable id="tabela" widgetVar="tabela" emptyMessage="Nenhum registro encontrado." paginator="true" value="#{clienteBean.clientes}" var="cliente" rows="5">
 				<f:facet name="header">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" actionListener="#{clienteBean.novo}" update=":mensagem :dialog-cadastro-cliente:painel">
+					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" actionListener="#{clienteBean.listar()}" update=":mensagem :form-cadastro-cliente:painel">
 						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 					</p:commandButton>
 				</f:facet>
@@ -50,14 +48,12 @@
 					
 					<p:selectBooleanCheckbox value="#{cliente.liberado}" disabled="true" />
 				</p:column>
-
-				<p:column headerText="Opções">
-				</p:column>
 			</p:dataTable>
 		</p:panel>
+    </h:form>
     
 	<p:dialog header="Clientes - Cadastro" widgetVar="dialogo" draggable="false" resizable="false" modal="true" closable="false">
-		<h:form id="dialog-cadastro-cliente">
+		<h:form id="form-cadastro-cliente">
 			<h:panelGrid id="painel" columns="2">
 				<p:outputLabel for="pessoa" value="Pessoa:" />
 				<p:selectOneMenu id="pessoa" filter="true" value="#{clienteBean.cliente.pessoa}" required="true" requiredMessage="O campo 'Pessoa' é obrigatório" converter="omnifaces.SelectItemsConverter">
@@ -75,7 +71,7 @@
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" update=":mensagem :dialog-cadastro-cliente:painel"
+				<p:commandButton value="Salvar" update=":mensagem :form-cadastro-cliente:painel"
 					actionListener="#{clienteBean.salvar}" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>

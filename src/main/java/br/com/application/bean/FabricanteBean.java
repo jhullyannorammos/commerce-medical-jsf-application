@@ -31,8 +31,9 @@ public class FabricanteBean implements Serializable {
 
 	@PostConstruct
 	public void listar() throws Exception {
+		
+		fabricanteDao = new FabricanteDAO();
 		try {
-			fabricanteDao = new FabricanteDAO();
 			fabricantes = fabricanteDao.listar();
  		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar listar os fabricantes");
@@ -44,29 +45,43 @@ public class FabricanteBean implements Serializable {
 		fabricante = new Fabricante();
 	}
 
-	public void salvar() {
+	public void salvar() throws Exception {
+		fabricanteDao = new FabricanteDAO();
 		try {
-
-			Messages.addGlobalInfo("Fabricante salvo com sucesso");
+			fabricanteDao.merge(fabricante);
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar salvar o fabricante");
 			erro.printStackTrace();
+		} finally {
+			Messages.addGlobalInfo("Fabricante salvo com sucesso");
+			listar();
 		}
 	}
 
-	public void excluir(ActionEvent evento) {
+	public void excluir(ActionEvent evento) throws Exception {
+		fabricante = (Fabricante) evento.getComponent().getAttributes().get("fabricanteSelecionado");
 		try {
-			fabricante = (Fabricante) evento.getComponent().getAttributes().get("fabricanteSelecionado");
-
-			Messages.addGlobalInfo("Fabricante removido com sucesso");
+			fabricanteDao.excluir(fabricante);
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o fabricante");
 			erro.printStackTrace();
+		} finally {
+			Messages.addGlobalInfo("Fabricante removido com sucesso");
+			listar();
 		}
 	}
 
-	public void editar(ActionEvent evento) {
+	public void editar(ActionEvent evento) throws Exception {
 		fabricante = (Fabricante) evento.getComponent().getAttributes().get("fabricanteSelecionado");
+		try {
+			fabricanteDao.merge(fabricante);
+		} catch(RuntimeException exception) {
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o fabricante");
+			exception.printStackTrace();
+		} finally {
+			Messages.addGlobalInfo("Fabricante editado com sucesso");
+			listar();
+		}
 	}
 	
 	public Fabricante getFabricante() {

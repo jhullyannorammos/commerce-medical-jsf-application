@@ -27,26 +27,12 @@ public class ClienteBean extends ReportBean {
 
 	@PostConstruct
 	public void listar() throws Exception {
+		ClienteDAO clienteDAO = new ClienteDAO();
 		try {
-			ClienteDAO clienteDAO = new ClienteDAO();
-			clientes = clienteDAO.listar("dataCadastro");
+			clientes = clienteDAO.listar();
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar listar os clientes");
 			erro.printStackTrace();
-		}
-	}
-
-	public void novo() throws Exception {
-		try {
-			cliente = new Cliente();
-
-			PessoaDAO pessoaDAO = new PessoaDAO();
-			pessoas = pessoaDAO.listar("nome");
-		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Ocorreu um erro ao tentar criar um novo cliente");
-			erro.printStackTrace();
-		} finally {
-			
 		}
 	}
 
@@ -61,11 +47,11 @@ public class ClienteBean extends ReportBean {
 			PessoaDAO pessoaDAO = new PessoaDAO();
 			pessoas = pessoaDAO.listar("nome");
 			
-			Messages.addGlobalInfo("Cliente salvo com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar salvar o cliente");
 			erro.printStackTrace();
 		} finally {
+			Messages.addGlobalInfo("Cliente salvo com sucesso");
 			clientes = clienteDAO.listar("dataCadastro");
 			cliente = new Cliente();
 		}

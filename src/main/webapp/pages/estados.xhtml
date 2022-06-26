@@ -8,13 +8,12 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	template="/templates/modelo.xhtml">
 
-    <!--  
+
+    <!-- 
+    <f:viewParam name="codigo" value="#{estadoBean.estado}" required="true" requiredMessage="Teste" />
+     -->
+     
 	<f:metadata>
-		<f:viewParam name="codigo" value="#{estadoBean.estado.codigo}" required="true" requiredMessage="Teste" />
-		<f:viewAction action="#{estadoBean.listar}" />
-	</f:metadata>
-    -->
-    <f:metadata>
 		<f:viewAction action="#{estadoBean.listar}" />
 	</f:metadata>
 	

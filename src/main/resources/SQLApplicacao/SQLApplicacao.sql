@@ -106,9 +106,14 @@ select * from usuario;
     ) engine=InnoDB;
 /*Hibernate:*/ 
     
-    insert into Pessoa values(1, "Asa sul", "(61)95241-9854", "74.512-632", "Planalto", "254.397.854-73", "thomashelby@outlook.com", "Thomas Shelby", 12, "5.698.745-10", "Rua 123", "(61)5241-9224", 1);
-    insert into Pessoa values(2, "Setor bueno", "(62)92222-9854", "11.512-632", "Carrefour", "114.397.114-73", "dicaprio@outlook.com", "Leonardo Dicaprio", 13, "5.118.711-10", "Rua 22", "(61)3322-9224", 1);
-    insert into Pessoa values(3, "Corredor Vitoria", "(61)93341-9334", "74.332-112", "Praia", "266.397.854-73", "demi@outlook.com", "Demi Lovato", 19, "5.998.799-10", "Rua 443", "(61)8841-9224", 1);
+    insert into pessoa values(1, "Asa sul", "(61)95241-9854", "74.512-632", "Planalto", "254.397.854-73", "thomashelby@outlook.com", "Thomas Shelby", 12, "5.698.745-10", "Rua 123", "(61)5241-9224", 1);
+    insert into pessoa values(2, "Setor bueno", "(62)92222-9854", "11.512-632", "Carrefour", "114.397.114-73", "dicaprio@outlook.com", "Leonardo Dicaprio", 13, "5.118.711-10", "Rua 22", "(61)3322-9224", 1);
+    insert into pessoa values(3, "Corredor Vitoria", "(61)93341-9334", "74.332-112", "Praia", "266.397.854-73", "demi@outlook.com", "Demi Lovato", 19, "5.998.799-10", "Rua 443", "(61)8841-9224", 1);
+    
+    select * from produto;
+    select * from pessoa;
+	select * from cidade;
+    select * from estado;
     
     create table Pessoa (codigo bigint not null,
         bairro varchar(30) not null,

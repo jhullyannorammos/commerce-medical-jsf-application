@@ -119,7 +119,6 @@
 					<f:selectItems value="#{produtoBean.fabricantes}" var="fabricante"
 						itemValue="#{fabricante}" itemLabel="#{fabricante.descricao}" />
 				</p:selectOneMenu>
-
 				
 				<p:outputLabel for="upload" value="Upload:" />
 				<p:fileUpload fileUploadListener="#{produtoBean.upload}" 
@@ -128,12 +127,10 @@
 				              auto="true"  
 				              id="upload" />
 				              
-
-
                 <p:outputLabel for="foto" value="Foto" />
-                <p:graphicImage value="#{imagemBean.foto}" >
+                <p:graphicImage id="foto" value="#{imagemBean.foto}" >
                      <f:param name="caminho" value="#{produtoBean.produto.caminho}" />
-                </p:graphicImage>/
+                </p:graphicImage>
  
 			</h:panelGrid>
 
