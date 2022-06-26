@@ -10,7 +10,7 @@ import javax.persistence.Transient;
 
 @SuppressWarnings("serial")
 @Entity
-public class Produto extends GenericDomain {
+public class Medicacao extends GenericDomain {
 	
 	@Column(length = 80, nullable = false)
 	private String descricao;
@@ -28,7 +28,7 @@ public class Produto extends GenericDomain {
 	@Transient 
 	private String caminho;
 	
-	public Produto() {
+	public Medicacao() {
 		// TODO Auto-generated constructor stub
 	}
 

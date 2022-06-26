@@ -18,7 +18,7 @@ public class ItemVenda extends GenericDomain {
 	
 	@ManyToOne
 	@JoinColumn(nullable = false)
-	private Produto produto;
+	private Medicacao produto;
 	
 	@ManyToOne
 	@JoinColumn(nullable = false)
@@ -40,11 +40,11 @@ public class ItemVenda extends GenericDomain {
 		this.precoParcial = precoParcial;
 	}
 
-	public Produto getProduto() {
+	public Medicacao getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Produto produto) {
+	public void setProduto(Medicacao produto) {
 		this.produto = produto;
 	}
 

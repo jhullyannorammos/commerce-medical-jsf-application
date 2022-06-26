@@ -29,9 +29,9 @@ import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 import br.com.application.dao.FabricanteDAO;
-import br.com.application.dao.ProdutoDAO;
+import br.com.application.dao.MedicacaoDAO;
 import br.com.application.domain.Fabricante;
-import br.com.application.domain.Produto;
+import br.com.application.domain.Medicacao;
 import br.com.application.util.HibernateUtil;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -41,18 +41,18 @@ import net.sf.jasperreports.engine.JasperPrintManager;
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
-public class ProdutoBean implements Serializable {
+public class MedicacaoBean implements Serializable {
 	
-	ProdutoDAO produtoDAO;
-	private Produto produto;
-	private List<Produto> produtos;
+	MedicacaoDAO produtoDAO;
+	private Medicacao produto;
+	private List<Medicacao> produtos;
 	private List<Fabricante> fabricantes;
 
 	private StreamedContent foto;
 	
 	@PostConstruct public void listar() throws Exception {
 		try {
-			produtoDAO = new ProdutoDAO();
+			produtoDAO = new MedicacaoDAO();
 			produtos = produtoDAO.listar("descricao");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Ocorreu um erro ao tentar listar os produtos");
@@ -62,7 +62,7 @@ public class ProdutoBean implements Serializable {
 
 	public void novo() throws Exception {
 		try {
-			produto = new Produto();
+			produto = new Medicacao();
 
 			FabricanteDAO fabricanteDAO = new FabricanteDAO();
 			fabricantes = fabricanteDAO.listar("descricao");
@@ -74,7 +74,7 @@ public class ProdutoBean implements Serializable {
 
 	public void editar(ActionEvent evento) throws Exception {
 		try {
-			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
+			produto = (Medicacao) evento.getComponent().getAttributes().get("produtoSelecionado");
 			produto.setCaminho("D:/images/devs/" + produto.getCodigo() + ".png");
 
 			FabricanteDAO fabricanteDAO = new FabricanteDAO();
@@ -92,8 +92,8 @@ public class ProdutoBean implements Serializable {
 				return;
 			}
 
-			produtoDAO = new ProdutoDAO();
-			Produto produtoRetorno = produtoDAO.merge(produto);
+			produtoDAO = new MedicacaoDAO();
+			Medicacao produtoRetorno = produtoDAO.merge(produto);
 
 			Path origem = Paths.get(produto.getCaminho());
 			Path destino = Paths.get("D:/images/devs/" + produtoRetorno.getCodigo() + ".png");
@@ -106,7 +106,7 @@ public class ProdutoBean implements Serializable {
 			FabricanteDAO fabricanteDAO = new FabricanteDAO();
 			fabricantes = fabricanteDAO.listar();
 			
-			produtoDAO = new ProdutoDAO();
+			produtoDAO = new MedicacaoDAO();
 			produtos = produtoDAO.listar();
 
 			Messages.addGlobalInfo("Produto salvo com sucesso");
@@ -114,9 +114,9 @@ public class ProdutoBean implements Serializable {
 	}
 
 	public void excluir(ActionEvent evento) throws Exception {
-		produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
+		produto = (Medicacao) evento.getComponent().getAttributes().get("produtoSelecionado");
 		try {
-			produtoDAO = new ProdutoDAO();
+			produtoDAO = new MedicacaoDAO();
 			produtoDAO.excluir(produto);
 
 			Path arquivo = Paths.get("D:/images/dev/" + produto.getCodigo() + ".png");
@@ -187,7 +187,7 @@ public class ProdutoBean implements Serializable {
 	}
 
 	public void download(ActionEvent evento) {
-		produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
+		produto = (Medicacao) evento.getComponent().getAttributes().get("produtoSelecionado");
 		try {
 			InputStream stream = new FileInputStream("C:/Desenvolvimento/Uploads/" + produto.getCodigo() + ".png");
 			foto = new DefaultStreamedContent(stream, "image/png", produto.getCodigo() + ".png");
@@ -197,19 +197,19 @@ public class ProdutoBean implements Serializable {
 		}
 	}
 	
-	public Produto getProduto() {
+	public Medicacao getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Produto produto) {
+	public void setProduto(Medicacao produto) {
 		this.produto = produto;
 	}
 
-	public List<Produto> getProdutos() {
+	public List<Medicacao> getProdutos() {
 		return produtos;
 	}
 
-	public void setProdutos(List<Produto> produtos) {
+	public void setProdutos(List<Medicacao> produtos) {
 		this.produtos = produtos;
 	}
 

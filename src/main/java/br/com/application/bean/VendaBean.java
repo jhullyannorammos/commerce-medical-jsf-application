@@ -15,12 +15,12 @@ import org.omnifaces.util.Messages;
 
 import br.com.application.dao.ClienteDAO;
 import br.com.application.dao.FuncionarioDAO;
-import br.com.application.dao.ProdutoDAO;
+import br.com.application.dao.MedicacaoDAO;
 import br.com.application.dao.VendaDAO;
 import br.com.application.domain.Cliente;
 import br.com.application.domain.Funcionario;
 import br.com.application.domain.ItemVenda;
-import br.com.application.domain.Produto;
+import br.com.application.domain.Medicacao;
 import br.com.application.domain.Venda;
 
 
@@ -30,7 +30,7 @@ import br.com.application.domain.Venda;
 public class VendaBean implements Serializable {
 	private Venda venda;
 
-	private List<Produto> produtos;
+	private List<Medicacao> produtos;
 	private List<ItemVenda> itensVenda;
 	private List<Cliente> clientes;
 	private List<Funcionario> funcionarios;
@@ -45,11 +45,11 @@ public class VendaBean implements Serializable {
 		this.venda = venda;
 	}
 
-	public List<Produto> getProdutos() {
+	public List<Medicacao> getProdutos() {
 		return produtos;
 	}
 
-	public void setProdutos(List<Produto> produtos) {
+	public void setProdutos(List<Medicacao> produtos) {
 		this.produtos = produtos;
 	}
 
@@ -90,7 +90,7 @@ public class VendaBean implements Serializable {
 			venda = new Venda();
 			venda.setPrecoTotal(new BigDecimal("0.00"));
 
-			ProdutoDAO produtoDAO = new ProdutoDAO();
+			MedicacaoDAO produtoDAO = new MedicacaoDAO();
 			produtos = produtoDAO.listar("descricao");
 
 			itensVenda = new ArrayList<>();
@@ -106,7 +106,7 @@ public class VendaBean implements Serializable {
 	}
 
 	public void adicionar(ActionEvent evento) {
-		Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
+		Medicacao produto = (Medicacao) evento.getComponent().getAttributes().get("produtoSelecionado");
 
 		int achou = -1;
 		for (int posicao = 0; posicao < itensVenda.size(); posicao++) {
@@ -194,7 +194,7 @@ public class VendaBean implements Serializable {
 			venda = new Venda();
 			venda.setPrecoTotal(new BigDecimal("0.00"));
 
-			ProdutoDAO produtoDAO = new ProdutoDAO();
+			MedicacaoDAO produtoDAO = new MedicacaoDAO();
 			produtos = produtoDAO.listar("descricao");
 
 			itensVenda = new ArrayList<>();

@@ -11,66 +11,66 @@
 	<ui:define name="conteudo">
 	
 	<f:metadata>
-		<f:viewAction action="#{produtoBean.listar}" />
+		<f:viewAction action="#{medicacaoBean.listar}" />
 	</f:metadata>
 	
-	<p:growl id="mensagem-produto" />
+	<p:growl id="mensagem-medicacao" />
 
 	<h:form id="formListagem">
-		<p:panel header="Produtos - Listagem">
-			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado." paginator="true" value="#{produtoBean.produtos}" var="produto" rows="5">
+		<p:panel header="medicacaos - Listagem">
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado." paginator="true" value="#{medicacaoBean.produtos}" var="medicacao" rows="5">
 				<f:facet name="header">
 					<p:commandButton icon="ui-icon-plus"
-						actionListener="#{produtoBean.novo}"
+						actionListener="#{medicacaoBean.novo}"
 						oncomplete="PF('dialogo').show();"
-						update=":mensagem :form-produto:painel">
+						update=":mensagem :form-medicacao:painel">
 						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 					</p:commandButton>
 
-					<p:commandButton icon="ui-icon-print" actionListener="#{produtoBean.imprimir}" />
+					<p:commandButton icon="ui-icon-print" actionListener="#{medicacaoBean.imprimir}" />
 				</f:facet>
 
-				<p:column headerText="Descrição" filterBy="#{produto.descricao}"
-					filterMatchMode="contains" sortBy="#{produto.descricao}">
-					<h:outputText value="#{produto.descricao}" />
+				<p:column headerText="Descrição" filterBy="#{medicacao.descricao}"
+					filterMatchMode="contains" sortBy="#{medicacao.descricao}">
+					<h:outputText value="#{medicacao.descricao}" />
 				</p:column>
 
-				<p:column headerText="Quantidade" sortBy="#{produto.quantidade}">
-					<h:outputText value="#{produto.quantidade}" />
+				<p:column headerText="Quantidade" sortBy="#{medicacao.quantidade}">
+					<h:outputText value="#{medicacao.quantidade}" />
 				</p:column>
 
-				<p:column headerText="Preço" sortBy="#{produto.preco}">
-					<h:outputText value="#{produto.preco}">
+				<p:column headerText="Preço" sortBy="#{medicacao.preco}">
+					<h:outputText value="#{medicacao.preco}">
 						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Fabricante"
-					filterBy="#{produto.fabricante.descricao}"
-					filterMatchMode="contains" sortBy="#{produto.fabricante.descricao}">
-					<h:outputText value="#{produto.fabricante.descricao}" />
+					filterBy="#{medicacao.fabricante.descricao}"
+					filterMatchMode="contains" sortBy="#{medicacao.fabricante.descricao}">
+					<h:outputText value="#{medicacao.fabricante.descricao}" />
 				</p:column>
 
 				<p:column headerText="Opções">
 					<p:commandButton icon="ui-icon-trash"
-						actionListener="#{produtoBean.excluir}"
+						actionListener="#{medicacaoBean.excluir}"
 						update=":mensagem :formListagem:tabela">
 						<p:confirm header="Confirmação"
-							message="Deseja excluir o produto?" icon="ui-icon-alert" />
-						<f:attribute name="produtoSelecionado" value="#{produto}" />
+							message="Deseja excluir o medicacao?" icon="ui-icon-alert" />
+						<f:attribute name="medicacaoSelecionado" value="#{medicacao}" />
 					</p:commandButton>
 
 					<p:commandButton icon="ui-icon-pencil"
-						actionListener="#{produtoBean.editar}"
-						update=":mensagem :form-produto:painel"
+						actionListener="#{medicacaoBean.editar}"
+						update=":mensagem :form-medicacao:painel"
 						oncomplete="PF('dialogo').show();">
-						<f:attribute name="produtoSelecionado" value="#{produto}" />
+						<f:attribute name="medicacaoSelecionado" value="#{medicacao}" />
 						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 					</p:commandButton>
 					
-					<p:commandButton icon="ui-icon-arrowthick-1-s" actionListener="#{produtoBean.download}" ajax="false">
-						<f:attribute name="produtoSelecionado" value="#{produto}" />
-						<p:fileDownload value="#{produtoBean.foto}" />
+					<p:commandButton icon="ui-icon-arrowthick-1-s" actionListener="#{medicacaoBean.download}" ajax="false">
+						<f:attribute name="medicacaoSelecionado" value="#{medicacao}" />
+						<p:fileDownload value="#{medicacaoBean.foto}" />
 					</p:commandButton>
 					
 				</p:column>
@@ -85,16 +85,16 @@
 		</p:panel>
 	</h:form>
 
-	<p:dialog header="Produtos - Cadastro" widgetVar="dialogo" 	draggable="true" resizable="false" modal="true" closable="false">
-		<h:form id="form-produto" enctype="multipart/form-data">
+	<p:dialog header="medicacaos - Cadastro" widgetVar="dialogo" 	draggable="true" resizable="false" modal="true" closable="false">
+		<h:form id="form-medicacao" enctype="multipart/form-data">
 			<h:panelGrid id="painel" columns="2">
 			
 				<p:outputLabel for="descricao" value="Descrição:" />
-				<p:inputText id="descricao" maxlength="50" size="30" value="#{produtoBean.produto.descricao}" required="true" requiredMessage="O campo 'Descrição' é obrigatório" />
+				<p:inputText id="descricao" maxlength="50" size="30" value="#{medicacaoBean.produto.descricao}" required="true" requiredMessage="O campo 'Descrição' é obrigatório" />
 
 				<p:outputLabel for="quantidade" value="Quantidade:" />
 				<p:inputText id="quantidade" maxlength="5" size="10"
-					value="#{produtoBean.produto.quantidade}" required="true"
+					value="#{medicacaoBean.produto.quantidade}" required="true"
 					requiredMessage="O campo 'Quantidade' é obrigatório"
 					converterMessage="Informe um valor válido para o campo 'Quantidade'"
 					validatorMessage="Informe um valor entre 0 e 1000 para o campo 'Quantidade'">
@@ -103,7 +103,7 @@
 
 				<p:outputLabel for="preco" value="Preço:" />
 				<p:inputText id="preco" maxlength="7" size="10"
-					value="#{produtoBean.produto.preco}" required="true"
+					value="#{medicacaoBean.produto.preco}" required="true"
 					requiredMessage="O campo 'Preço' é obrigatório"
 					converterMessage="Informe um valor válido para o campo 'Preço''"
 					validatorMessage="Informe um valor entre 0,01 e 9999,99 para o campo 'Preço'">
@@ -112,31 +112,31 @@
 				</p:inputText>
 
 				<p:outputLabel for="fabricante" value="Fabricante:" />
-				<p:selectOneMenu id="fabricante" filter="true" value="#{produtoBean.produto.fabricante}" converter="omnifaces.SelectItemsConverter" required="true"
+				<p:selectOneMenu id="fabricante" filter="true" value="#{medicacaoBean.produto.fabricante}" converter="omnifaces.SelectItemsConverter" required="true"
 					requiredMessage="O campo 'Fabricante' é obrigatório">
 					<f:selectItem noSelectionOption="true"
 						itemLabel="Selecione um fabricante" />
-					<f:selectItems value="#{produtoBean.fabricantes}" var="fabricante"
+					<f:selectItems value="#{medicacaoBean.fabricantes}" var="fabricante"
 						itemValue="#{fabricante}" itemLabel="#{fabricante.descricao}" />
 				</p:selectOneMenu>
 				
 				<p:outputLabel for="upload" value="Upload:" />
-				<p:fileUpload fileUploadListener="#{produtoBean.upload}" 
-				              update=":mensagem-produto :form-produto:foto" 
+				<p:fileUpload fileUploadListener="#{medicacaoBean.upload}" 
+				              update=":mensagem-medicacao :form-medicacao:foto" 
 				              mode="advanced"
 				              auto="true"  
 				              id="upload" />
 				              
                 <p:outputLabel for="foto" value="Foto" />
                 <p:graphicImage id="foto" value="#{imagemBean.foto}" >
-                     <f:param name="caminho" value="#{produtoBean.produto.caminho}" />
+                     <f:param name="caminho" value="#{medicacaoBean.produto.caminho}" />
                 </p:graphicImage>
  
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
 				<p:commandButton value="Salvar"
-					actionListener="#{produtoBean.salvar}" update=":mensagem-produto :form-produto:painel :formListagem:tabela" />
+					actionListener="#{medicacaoBean.salvar}" update=":mensagem-medicacao :form-medicacao:painel :formListagem:tabela" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>

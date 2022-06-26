@@ -21,7 +21,7 @@ public class Historico extends GenericDomain {
 
 	@ManyToOne
 	@JoinColumn(nullable = false)
-	private Produto produto;
+	private Medicacao produto;
 
 	public Date getHorario() {
 		return horario;
@@ -39,11 +39,11 @@ public class Historico extends GenericDomain {
 		this.observacoes = observacoes;
 	}
 
-	public Produto getProduto() {
+	public Medicacao getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Produto produto) {
+	public void setProduto(Medicacao produto) {
 		this.produto = produto;
 	}
 }

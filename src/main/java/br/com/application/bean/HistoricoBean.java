@@ -10,15 +10,15 @@ import javax.faces.bean.ViewScoped;
 import org.omnifaces.util.Messages;
 
 import br.com.application.dao.HistoricoDAO;
-import br.com.application.dao.ProdutoDAO;
+import br.com.application.dao.MedicacaoDAO;
 import br.com.application.domain.Historico;
-import br.com.application.domain.Produto;
+import br.com.application.domain.Medicacao;
 
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
 public class HistoricoBean implements Serializable {
-	private Produto produto;
+	private Medicacao produto;
 	private Boolean exibePainelDados;
 	
 	private Historico historico;
@@ -32,7 +32,7 @@ public class HistoricoBean implements Serializable {
 	@PostConstruct
 	public void novo() {
 		historico = new Historico();
-		produto = new Produto();
+		produto = new Medicacao();
 		exibePainelDados = false;
 	}
 
@@ -72,11 +72,11 @@ public class HistoricoBean implements Serializable {
 	
 	*/
 	
-	public Produto getProduto() {
+	public Medicacao getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Produto produto) {
+	public void setProduto(Medicacao produto) {
 		this.produto = produto;
 	}
 

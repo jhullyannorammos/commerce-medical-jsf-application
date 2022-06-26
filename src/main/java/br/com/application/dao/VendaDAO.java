@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import br.com.application.domain.ItemVenda;
-import br.com.application.domain.Produto;
+import br.com.application.domain.Medicacao;
 import br.com.application.domain.Venda;
 import br.com.application.util.HibernateUtil;
 
@@ -25,7 +25,7 @@ public class VendaDAO extends GenericDAO<Venda> {
 
 				sessao.save(itemVenda);
 
-				Produto produto = itemVenda.getProduto();
+				Medicacao produto = itemVenda.getProduto();
 				int quantidade = produto.getQuantidade() - itemVenda.getQuantidade();
 				if (quantidade >= 0) {
 					produto.setQuantidade(new Short(quantidade + ""));
